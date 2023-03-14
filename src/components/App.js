@@ -20,8 +20,11 @@ export const App = () => {
 
   const getImages = async (searchQuery, pageNumber, isFirstSearch = true) => {
     setIsLoading(true);
+
+    setPageNumber(1);
     try {
       const downImages = await fetchGalleryimages(searchQuery, pageNumber);
+
       if (downImages.length === 12) setIsLoadMoreButtonVisible(true);
       else setIsLoadMoreButtonVisible(false);
       if (isFirstSearch) {
@@ -33,7 +36,7 @@ export const App = () => {
       console.log(error);
     } finally {
       setIsLoading(false);
-      setPageNumber(pageNumber + 1);
+      setPageNumber(pageNumber);
     }
   };
 
@@ -54,11 +57,11 @@ export const App = () => {
         console.log(error);
       } finally {
         setIsLoading(false);
-        setPageNumber(pageNumber + 1);
       }
     };
     fetchData();
-  }, [pageNumber]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = async search => {
     setSearchQuery(search);
@@ -67,7 +70,7 @@ export const App = () => {
     setIsModalOpen(false);
     setLargeImageURL(null);
 
-    await getImages(search);
+    await getImages(search, pageNumber);
   };
 
   const onClickLoadMore = () => {

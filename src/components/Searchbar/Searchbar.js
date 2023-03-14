@@ -7,8 +7,7 @@ export const Searchbar = ({ handleSubmit }) => {
     evt.preventDefault();
     const form = evt.currentTarget;
     const searchQuery = form.elements.searchQuery.value;
-    console.log(searchQuery);
-    this.props.handleSubmit(searchQuery);
+    handleSubmit(searchQuery);
   };
 
   return (

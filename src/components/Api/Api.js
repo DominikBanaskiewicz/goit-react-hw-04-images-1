@@ -13,6 +13,5 @@ export const fetchGalleryimages = async (searchQuery, pageNumber) => {
       page: pageNumber,
     },
   });
-
   return response.data.hits;
 };
